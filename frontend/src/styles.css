@@ -113,6 +113,7 @@ select, input {
 .tag.danger { background: color-mix(in srgb, var(--danger) 25%, transparent); color: var(--danger); }
 .tag.ok { background: color-mix(in srgb, var(--ok) 25%, transparent); color: var(--ok); }
 .tag.warn { background: color-mix(in srgb, var(--warn) 25%, transparent); color: var(--warn); }
+.tag.muted { background: color-mix(in srgb, var(--muted) 25%, transparent); color: var(--muted); }
 .row-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
 pre.mono {
   font-family: "IBM Plex Mono", ui-monospace, monospace;

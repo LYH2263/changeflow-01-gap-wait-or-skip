@@ -32,13 +32,14 @@ def finish_run(
     applied: int,
     quarantined: int,
     skipped: int,
+    deferred: int = 0,
     cursor_after: int,
     report: dict[str, Any],
 ) -> None:
     conn.execute(
         """
         UPDATE apply_runs SET status=?, loaded_count=?, applied_count=?, quarantined_count=?,
-            skipped_count=?, cursor_after=?, report_json=? WHERE id=?
+            skipped_count=?, deferred_count=?, cursor_after=?, report_json=? WHERE id=?
         """,
         (
             status,
@@ -46,6 +47,7 @@ def finish_run(
             applied,
             quarantined,
             skipped,
+            deferred,
             cursor_after,
             json.dumps(report, ensure_ascii=False),
             run_id,
@@ -57,7 +59,7 @@ def list_runs(conn: sqlite3.Connection, limit: int = 50) -> list[dict[str, Any]]
     rows = conn.execute(
         """
         SELECT id, stream_id, status, loaded_count, applied_count, quarantined_count, skipped_count,
-               cursor_before, cursor_after, report_json, created_at
+               deferred_count, cursor_before, cursor_after, report_json, created_at
         FROM apply_runs ORDER BY id DESC LIMIT ?
         """,
         (limit,),
@@ -74,7 +76,7 @@ def get_run(conn: sqlite3.Connection, run_id: int) -> dict[str, Any] | None:
     row = conn.execute(
         """
         SELECT id, stream_id, status, loaded_count, applied_count, quarantined_count, skipped_count,
-               cursor_before, cursor_after, report_json, created_at
+               deferred_count, cursor_before, cursor_after, report_json, created_at
         FROM apply_runs WHERE id=?
         """,
         (run_id,),

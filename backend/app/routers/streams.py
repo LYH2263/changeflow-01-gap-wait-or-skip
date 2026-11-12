@@ -44,6 +44,20 @@ def patch_stream(stream_id: int, body: StreamPatch):
         conn.close()
 
 
+@router.post("/streams/{stream_id}/reset")
+def reset_stream(stream_id: int):
+    conn = connect()
+    try:
+        stream = streams_repo.get_stream(conn, stream_id)
+        if not stream:
+            raise HTTPException(404, "stream not found")
+        streams_repo.reset_stream_state(conn, stream_id)
+        conn.commit()
+        return streams_repo.get_stream(conn, stream_id)
+    finally:
+        conn.close()
+
+
 @router.get("/streams/{stream_id}/preview")
 def preview(stream_id: int):
     try:

@@ -1,0 +1,6 @@
+{"seq":1,"op":"upsert","entity_key":"PAY-3001","event_ts":"2026-11-02T10:00:00Z","payload":{"status":"created","amount":66.0,"channel":"web"}}
+{"seq":2,"op":"upsert","entity_key":"PAY-3001","event_ts":"2026-11-02T10:05:00Z","payload":{"status":"authorized","amount":66.0,"channel":"web"}}
+{"seq":4,"op":"upsert","entity_key":"PAY-3002","event_ts":"2026-11-02T10:15:00Z","payload":{"status":"created","amount":129.9,"channel":"pos"}}
+{"seq":5,"op":"upsert","entity_key":"PAY-3002","event_ts":"2026-11-02T10:20:00Z","payload":{"status":"captured","amount":129.9,"channel":"pos"}}
+{"seq":6,"op":"upsert","entity_key":"PAY-3003","event_ts":"2026-11-02T10:25:00Z","payload":{"status":"created","amount":12.5,"channel":"web"}}
+{"seq":9,"op":"delete","entity_key":"PAY-3003","event_ts":"2026-11-02T10:40:00Z","payload":{}}

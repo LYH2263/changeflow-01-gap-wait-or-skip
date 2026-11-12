@@ -52,5 +52,11 @@ def list_quarantine(conn: sqlite3.Connection) -> list[dict[str, Any]]:
     return out
 
 
-def count_quarantine(conn: sqlite3.Connection) -> int:
-    return int(conn.execute("SELECT COUNT(*) c FROM quarantine").fetchone()["c"])
+def count_quarantine(conn: sqlite3.Connection, stream_id: int | None = None) -> int:
+    if stream_id is None:
+        return int(conn.execute("SELECT COUNT(*) c FROM quarantine").fetchone()["c"])
+    return int(
+        conn.execute(
+            "SELECT COUNT(*) c FROM quarantine WHERE stream_id=?", (stream_id,)
+        ).fetchone()["c"]
+    )
